@@ -33,11 +33,11 @@ public class PlayerBz {
 		Message.Msg2("Bonjour " + joueur.getNom() + " !");
 		Pause.PauseAff(800);
 		Message.Msg2("Génération des caractéristiques....");
-		joueur.setHP(Generator.GenNb(50, 90));
+		joueur.setHP(Generator.GenNb(110, 160));
 		joueur.setHPmax(joueur.getHP());
 		joueur.setMP(Generator.GenNb(20, 50));
 		joueur.setMPmax(joueur.getMP());
-		joueur.setATK(Generator.GenNb(15, 20));
+		joueur.setATK(Generator.GenNb(15, 30));
 		joueur.setDEF(Generator.GenNb(3, 6));
 		joueur.setINT(Generator.GenNb(5, 15));
 		Message.VoirPerso(joueur);

@@ -198,60 +198,15 @@ public class MobBz {
 	}
 
 	public static void GenerationMob(Player joueur, Mob monstre) {
-		if (joueur.getNiv() < 5) {
+		if (joueur.getNiv() < 20) {
+			int token = 30;
 			monstre.setNom(GenMob(monstre));
-			monstre.setHP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 30,
-					(joueur.getNiv() * joueur.getNiv()) + 50));
-			monstre.setMP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 10,
-					(joueur.getNiv() * joueur.getNiv()) + 20));
-			monstre.setATK(Generator.GenNb(joueur.getNiv() + 10, joueur.getNiv() + 20));
-			monstre.setDEF(Generator.GenNb(joueur.getNiv() + 3, joueur.getNiv() + 6));
-			monstre.setINT(Generator.GenNb(joueur.getNiv() + 5, joueur.getNiv() + 15));
+			monstre.setHP(Generator.GenNb((joueur.getHP()- token), (joueur.getHP() + joueur.getNiv())));
+			monstre.setMP(Generator.GenNb((joueur.getMP() - token), (joueur.getMP() + joueur.getNiv())));
+			monstre.setATK(Generator.GenNb((joueur.getATK() - token), (joueur.getATK() + joueur.getNiv())));
+			monstre.setDEF(Generator.GenNb((joueur.getDEF() - token), (joueur.getDEF() + joueur.getNiv())));
+			monstre.setINT(Generator.GenNb((joueur.getINT()) - token, (joueur.getINT() + joueur.getNiv())));
 
-		}
-
-		if (joueur.getNiv() == 5 || joueur.getNiv() == 6 || joueur.getNiv() == 7 || joueur.getNiv() == 8) {
-			monstre.setNom(GenMob(monstre));
-			monstre.setHP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 50,
-					(joueur.getNiv() * joueur.getNiv()) + 70));
-			monstre.setMP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 20,
-					(joueur.getNiv() * joueur.getNiv()) + 30));
-			monstre.setATK(Generator.GenNb(joueur.getNiv() + 35, joueur.getNiv() + 40));
-			monstre.setDEF(Generator.GenNb(joueur.getNiv() + 12, joueur.getNiv() + 20));
-			monstre.setINT(Generator.GenNb(joueur.getNiv() + 12, joueur.getNiv() + 20));
-		}
-
-		if (joueur.getNiv() == 9 || joueur.getNiv() == 10 || joueur.getNiv() == 11 || joueur.getNiv() == 12) {
-			monstre.setNom(GenMob(monstre));
-			monstre.setHP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 70,
-					(joueur.getNiv() * joueur.getNiv()) + 90));
-			monstre.setMP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 30,
-					(joueur.getNiv() * joueur.getNiv()) + 40));
-			monstre.setATK(Generator.GenNb(joueur.getNiv() + 50, joueur.getNiv() + 60));
-			monstre.setDEF(Generator.GenNb(joueur.getNiv() + 15, joueur.getNiv() + 30));
-			monstre.setINT(Generator.GenNb(joueur.getNiv() + 15, joueur.getNiv() + 30));
-		}
-
-		if (joueur.getNiv() == 13 || joueur.getNiv() == 14 || joueur.getNiv() == 15 || joueur.getNiv() == 16) {
-			monstre.setNom(GenMob(monstre));
-			monstre.setHP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 150,
-					(joueur.getNiv() * joueur.getNiv()) + 200));
-			monstre.setMP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 40,
-					(joueur.getNiv() * joueur.getNiv()) + 50));
-			monstre.setATK(Generator.GenNb(joueur.getNiv() + 70, joueur.getNiv() + 90));
-			monstre.setDEF(Generator.GenNb(joueur.getNiv() + 30, joueur.getNiv() + 60));
-			monstre.setINT(Generator.GenNb(joueur.getNiv() + 30, joueur.getNiv() + 60));
-		}
-
-		if (joueur.getNiv() == 17 || joueur.getNiv() == 18 || joueur.getNiv() == 19 || joueur.getNiv() == 20) {
-			monstre.setNom(GenMob(monstre));
-			monstre.setHP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 250,
-					(joueur.getNiv() * joueur.getNiv()) + 500));
-			monstre.setMP(Generator.GenNb((joueur.getNiv() * joueur.getNiv()) + 70,
-					(joueur.getNiv() * joueur.getNiv()) + 90));
-			monstre.setATK(Generator.GenNb(joueur.getNiv() + 90, joueur.getNiv() + 90));
-			monstre.setDEF(Generator.GenNb(joueur.getNiv() + 40, joueur.getNiv() + 40));
-			monstre.setINT(Generator.GenNb(joueur.getNiv() + 40, joueur.getNiv() + 40));
 		}
 
 	}
