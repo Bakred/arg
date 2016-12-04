@@ -10,7 +10,8 @@ public class Player {
 	private int ATK;
 	private int DEF;
 	private int INT;
-	private int Niv = 1;
+	private int Niv = 19;
+	private boolean youTurn = true;
 
 	private boolean isPoison = false;
 	private boolean isSleep = false;
@@ -139,4 +140,11 @@ public class Player {
 		this.isMute = isMute;
 	}
 
+	public boolean isYouTurn() {
+		return youTurn;
+	}
+
+	public void setYouTurn(boolean youTurn) {
+		this.youTurn = youTurn;
+	}
 }

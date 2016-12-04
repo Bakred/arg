@@ -38,7 +38,7 @@ public class PlayerBz {
 		joueur.setMP(Generator.GenNb(20, 50));
 		joueur.setMPmax(joueur.getMP());
 		joueur.setATK(Generator.GenNb(15, 30));
-		joueur.setDEF(Generator.GenNb(3, 6));
+		joueur.setDEF(Generator.GenNb(5, 10));
 		joueur.setINT(Generator.GenNb(5, 15));
 		Message.VoirPerso(joueur);
 		System.out.print("\033[H\033[2J");
@@ -64,7 +64,7 @@ public class PlayerBz {
 			num = (joueur.getATK()) * 2;
 			num = num - monstre.getDEF();
 			num = Check.CheckWeakResist(joueur, monstre, num, "", type);
-			hit = Generator.GenNb(-10, 10);
+			hit = Generator.GenNb(0, 10);
 			hit = (double) num * (hit / (double) 100) + (double) num;
 			monstre.setHP((monstre.getHP() - (int) hit));
 			Message.Msg("Vous effectuez une attaque de " + (int) hit + " HP !");
@@ -86,7 +86,7 @@ public class PlayerBz {
 			num = joueur.getATK();
 			num = num - monstre.getDEF();
 			num = Check.CheckWeakResist(joueur, monstre, num, "", type);
-			hit = Generator.GenNb(-10, 10);
+			hit = Generator.GenNb(0, 100);
 			hit = (double) num * (hit / (double) 100) + (double) num;
 			monstre.setHP((monstre.getHP() - (int) hit));
 			Message.Msg("Vous effectuez une attaque de " + (int) hit + " HP !");

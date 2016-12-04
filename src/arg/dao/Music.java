@@ -11,46 +11,49 @@ import de.quippy.javamod.multimedia.mod.ModContainer;
 import de.quippy.javamod.system.Helpers;
 
 public class Music {
+	protected static boolean play = true;
 
 	public static synchronized void PlayMusic(String musicfile) { // background
 		new Thread(new Runnable() { // background
 			public void run() { // background
 				boolean boucle = true;
-				do {
-					try {
-						Helpers.registerAllClasses();
-						File music = new File(musicfile);
-						Properties props = new Properties();
-						props.setProperty(ModContainer.PROPERTY_PLAYER_ISP, "2");
-						props.setProperty(ModContainer.PROPERTY_PLAYER_STEREO, "2");
-						props.setProperty(ModContainer.PROPERTY_PLAYER_WIDESTEREOMIX, "FALSE");
-						props.setProperty(ModContainer.PROPERTY_PLAYER_NOISEREDUCTION, "TRUE");
-						props.setProperty(ModContainer.PROPERTY_PLAYER_MEGABASS, "TRUE");
-						props.setProperty(ModContainer.PROPERTY_PLAYER_BITSPERSAMPLE, "8");
-						props.setProperty(ModContainer.PROPERTY_PLAYER_FREQUENCY, "44100");
-						MultimediaContainerManager.configureContainer(props);
-						URL modUrl = music.toURI().toURL();
-						MultimediaContainer multimediaContainer = MultimediaContainerManager
-								.getMultimediaContainer(modUrl);
-						Mixer mixer = multimediaContainer.createNewMixer();
-						mixer.startPlayback();
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-						System.exit(3);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				} while (boucle == true);
+				while (play == true) {
+					do {
+						try {
+							Helpers.registerAllClasses();
+							File music = new File(musicfile);
+							Properties props = new Properties();
+							props.setProperty(ModContainer.PROPERTY_PLAYER_ISP, "2");
+							props.setProperty(ModContainer.PROPERTY_PLAYER_STEREO, "2");
+							props.setProperty(ModContainer.PROPERTY_PLAYER_WIDESTEREOMIX, "FALSE");
+							props.setProperty(ModContainer.PROPERTY_PLAYER_NOISEREDUCTION, "TRUE");
+							props.setProperty(ModContainer.PROPERTY_PLAYER_MEGABASS, "TRUE");
+							props.setProperty(ModContainer.PROPERTY_PLAYER_BITSPERSAMPLE, "8");
+							props.setProperty(ModContainer.PROPERTY_PLAYER_FREQUENCY, "44100");
+							MultimediaContainerManager.configureContainer(props);
+							URL modUrl = music.toURI().toURL();
+							MultimediaContainer multimediaContainer = MultimediaContainerManager
+									.getMultimediaContainer(modUrl);
+							Mixer mixer = multimediaContainer.createNewMixer();
+							mixer.startPlayback();
+						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+							System.exit(3);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					} while (boucle == true);
+				}
 			}
 
-		}).start(); // background
+		}).start(); // backgroung
 	}
 
 	public static void ChoixMusic() {
 		int num = 0;
 		final String PATH = "./music/";
 		String name;
-		num = Generator.GenNb(1, 10);
+		num = Generator.GenNb(3, 3);
 		switch (num) {
 		case 1:
 			name = "sun.xm";
@@ -74,5 +77,9 @@ public class Music {
 			name = "distant_lullaby.ogg";
 		}
 		Music.PlayMusic(PATH + name);
+	}
+
+	public static void StopMusic() {
+		play = false;
 	}
 }

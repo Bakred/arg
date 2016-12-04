@@ -21,12 +21,13 @@ public class Combat {
 		boolean boucle;
 		do {
 			boucle = false;
-
+			joueur.setYouTurn(true);
 			String choix;
 			Scanner sc2;
 			ASCIIBuilder.ASCIIBuild("(◣_◢)");
 			Sound.PlayMusic("./sounds/youturn.wav");
-			Message.Msg2("Vous rencontrez " + monstre.getNom() + " ! ( " + monstre.getHP() + " HP )");
+			Message.Msg2("Vous rencontrez " + monstre.getNom() + " ! ");
+			Message.Msg(monstre.getHP() + " HP /  " + monstre.getMP() + " MP / " + monstre.getATK() + " ATK / " + monstre.getDEF() + " DEF / " + monstre.getINT() + " INT  ");
 			Message.Msg2("Selectionnez votre action :");
 			Message.Msg("		>>> " + joueur.getNom() + " Niv°" + joueur.getNiv() + " <<<");
 			Message.Msg("-------------------------------------------------");

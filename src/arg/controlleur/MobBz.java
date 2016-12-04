@@ -6,6 +6,7 @@ import arg.dao.ASCIIBuilder;
 import arg.dao.Generator;
 import arg.dao.Pause;
 import arg.dao.Sound;
+import arg.dao.Music;
 import arg.modele.Magie;
 import arg.modele.Mob;
 import arg.modele.Player;
@@ -42,29 +43,29 @@ public class MobBz {
 
 		case 4:
 			nom = "un Dragon";
-			monstre.setWeak("Glace");
+			monstre.setWeak("Glacier");
 			monstre.setResist("Attaque");
-			monstre.setCastMag("Feu");
+			monstre.setCastMag("Brasier");
 			break;
 
 		case 5:
 			nom = "un Rat";
-			monstre.setWeak("Terre");
+			monstre.setWeak("Tremblement");
 			monstre.setResist("Aucune");
 			monstre.setCastMag("Aucune");
 			break;
 
 		case 6:
 			nom = "un Rat";
-			monstre.setWeak("Terre");
+			monstre.setWeak("Tremblement");
 			monstre.setResist("Aucune");
 			monstre.setCastMag("Aucune");
 			break;
 
 		case 7:
 			nom = "un Géant de feu";
-			monstre.setWeak("Glace");
-			monstre.setResist("Feu");
+			monstre.setWeak("Glacier");
+			monstre.setResist("Brasier");
 			monstre.setCastMag("Aucune");
 			break;
 
@@ -77,14 +78,14 @@ public class MobBz {
 
 		case 9:
 			nom = "un Chat sauvage";
-			monstre.setWeak("Eau");
+			monstre.setWeak("Bulles");
 			monstre.setResist("Aucune");
 			monstre.setCastMag("Aucune");
 			break;
 
 		case 10:
 			nom = "un Alien";
-			monstre.setWeak("Eau");
+			monstre.setWeak("Bulles");
 			monstre.setResist("Gravite");
 			monstre.setCastMag("Aucune");
 			break;
@@ -106,21 +107,21 @@ public class MobBz {
 		case 13:
 			nom = "une Sangsue aquatique";
 			monstre.setWeak("Foudre");
-			monstre.setResist("Eau");
-			monstre.setCastMag("Eau");
+			monstre.setResist("Bulles");
+			monstre.setCastMag("Bulles");
 			break;
 
 		case 14:
 			nom = "une Sorciére des landes";
 			monstre.setWeak("Aucune");
 			monstre.setResist("Magie");
-			monstre.setCastMag("Vent");
+			monstre.setCastMag("Brise");
 			break;
 
 		case 15:
 			nom = "une Masse gélantneuse";
 			monstre.setWeak("Aucune");
-			monstre.setResist("Glace");
+			monstre.setResist("Glacier");
 			monstre.setCastMag("Aucune");
 			break;
 
@@ -133,7 +134,7 @@ public class MobBz {
 
 		case 17:
 			nom = "un Nuage d'acide";
-			monstre.setWeak("Vent");
+			monstre.setWeak("Brise");
 			monstre.setResist("Attaque");
 			monstre.setCastMag("Folie");
 			break;
@@ -141,7 +142,7 @@ public class MobBz {
 		case 18:
 			nom = "une Fée déchue";
 			monstre.setWeak("Soin");
-			monstre.setResist("Glace");
+			monstre.setResist("Glacier");
 			monstre.setCastMag("Folie");
 			break;
 
@@ -154,66 +155,114 @@ public class MobBz {
 
 		case 20:
 			nom = "une Plante carnivore";
-			monstre.setWeak("Aucune");
-			monstre.setResist("Feu");
+			monstre.setWeak("Brasier");
+			monstre.setResist("Aucune");
 			monstre.setCastMag("Aucune");
 			break;
 
 		case 21:
 			nom = "un Guerrier morbide";
-			monstre.setWeak("Feu");
+			monstre.setWeak("Brasier");
 			monstre.setResist("Aucune");
 			monstre.setCastMag("Aucune");
 			break;
 
 		case 22:
 			nom = "un Oiseau de fer";
-			monstre.setWeak("Vent");
+			monstre.setWeak("Brise");
 			monstre.setResist("Attaque");
 			monstre.setCastMag("Aucune");
 			break;
 
 		case 23:
 			nom = "un Elementaire de feu";
-			monstre.setWeak("Glace");
-			monstre.setResist("Feu");
-			monstre.setCastMag("Feu");
+			monstre.setWeak("Glacier");
+			monstre.setResist("Brasier");
+			monstre.setCastMag("Brasier");
 			break;
 
 		case 24:
 			nom = "un Elementaire de foudre";
-			monstre.setWeak("Eau");
+			monstre.setWeak("Bulles");
 			monstre.setResist("Foudre");
 			monstre.setCastMag("Foudre");
 			break;
 
 		case 25:
 			nom = "un Elementaire de glace";
-			monstre.setWeak("Feu");
-			monstre.setResist("Glace");
-			monstre.setCastMag("Glace");
+			monstre.setWeak("Brasier");
+			monstre.setResist("Glacier");
+			monstre.setCastMag("Glacier");
 			break;
 		}
 		return nom;
 	}
 
-	public static void GenerationMob(Player joueur, Mob monstre) {
+	public static void GenerationMob(Player joueur, Mob monstre) throws IOException {
 		if (joueur.getNiv() < 20) {
-			int token = 30;
-			monstre.setNom(GenMob(monstre));
-			monstre.setHP(Generator.GenNb((joueur.getHP()- token), (joueur.getHP() + joueur.getNiv())));
-			monstre.setMP(Generator.GenNb((joueur.getMP() - token), (joueur.getMP() + joueur.getNiv())));
-			monstre.setATK(Generator.GenNb((joueur.getATK() - token), (joueur.getATK() + joueur.getNiv())));
-			monstre.setDEF(Generator.GenNb((joueur.getDEF() - token), (joueur.getDEF() + joueur.getNiv())));
-			monstre.setINT(Generator.GenNb((joueur.getINT()) - token, (joueur.getINT() + joueur.getNiv())));
+			/*double tokenmin = -20;
+			double tokenmax = 20; */
 
+			monstre.setNom(GenMob(monstre));
+
+			/* HP */
+			double tokenHPmin = -100 + joueur.getNiv();
+			double tokenHPmax = -70 + joueur.getNiv();
+			double tamp = Generator.GenNbDouble((double) (joueur.getHPmax() * (double) (tokenHPmin / 100) + (double) joueur.getHPmax()),
+					(double) (joueur.getHPmax() * (double) (tokenHPmax / 100) + (double) joueur.getHPmax()));
+			monstre.setHP((int) tamp);
+
+			/* MP */
+			double tokenMPmin = -20 + joueur.getNiv();
+			double tokenMPmax = 20 + joueur.getNiv();
+			tamp = Generator.GenNbDouble((double) (joueur.getMPmax() * (double) (tokenMPmin / 100) + (double) joueur.getMPmax()),
+					(double) (joueur.getMPmax() * (double) (tokenMPmax / 100) + (double) joueur.getMPmax()));
+			monstre.setMP((int) tamp);
+
+			/* ATK */
+			double tokenATKmin = -10 + joueur.getNiv();
+			double tokenATKmax = 10 + joueur.getNiv();
+			tamp = Generator.GenNbDouble((double) (joueur.getATK() * (double) (tokenATKmin / 100) + (double) joueur.getATK()),
+					(double) (joueur.getATK() * (double) (tokenATKmax / 100) + (double) joueur.getATK()));
+			monstre.setATK((int) tamp);
+
+			/* DEF */
+			double tokenDEFmin = -30 + joueur.getNiv();
+			double tokenDEFmax = -20 + joueur.getNiv();
+			if (tokenDEFmax >= 0) {
+				tokenDEFmax = 0;
+			}
+
+			if (tokenDEFmin >= 0) {
+				tokenDEFmin = 0;
+			}
+			tamp = Generator.GenNbDouble((double) (joueur.getDEF() * (double) (tokenDEFmin / 100) + (double) joueur.getDEF()),
+					(double) (joueur.getDEF() * (double) (tokenDEFmax / 100) + (double) joueur.getDEF()));
+			monstre.setDEF((int) tamp);
+
+			/* INT */
+			double tokenINTmin = -20 + joueur.getNiv();
+			double tokenINTmax = 20 + joueur.getNiv();
+			tamp = Generator.GenNbDouble((double) (joueur.getINT() * (double) (tokenINTmin / 100) + (double) joueur.getINT()),
+					(double) (joueur.getINT() * (double) (tokenINTmax / 100) + (double) joueur.getINT()));
+			monstre.setINT((int) tamp);
+			// prixTTC = prixHT * ( 23 / 100 ) + prixHT;
 		}
 
+		if (joueur.getNiv() == 20) {
+			Music.StopMusic();
+			Music.PlayMusic("./music/end.XM");
+			ASCIIBuilder.ASCIIBuild("; )");
+			Message.Msg2("Vous avez gagné la partie !");
+			Message.Confirm();
+			System.exit(3);
+		}
 	}
 
 	public static void MobAtk(Player joueur, Mob monstre) throws IOException, InterruptedException {
 		ASCIIBuilder.ASCIIBuild("(◣_◢)");
 		Message.Msg2("L'ennemi attaque ! ");
+		joueur.setYouTurn(false);
 		Pause.PauseAff(800);
 		/* Coup critique */
 		int choix = 0;
@@ -239,7 +288,7 @@ public class MobBz {
 			Pause.PauseAff(800);
 			num = (monstre.getATK() * 2);
 			num = num - joueur.getDEF();
-			hit = Generator.GenNb(-10, 10);
+			hit = Generator.GenNb(0, 10);
 			hit = (double) num * (hit / (double) 100) + (double) num;
 			joueur.setHP((joueur.getHP() - (int) hit));
 			Message.Msg("Il effectue une attaque de " + (int) hit + " HP !");
@@ -271,11 +320,11 @@ public class MobBz {
 			}
 
 			switch (nomMagie) {
-			case "Feu":
+				case "Brasier":
 				MagieBz.Brasier(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
-			case "Glace":
+				case "Glacier":
 				MagieBz.Glacier(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
@@ -291,16 +340,16 @@ public class MobBz {
 				MagieBz.Bouclier(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
-			case "Terre":
+				case "Tremblement":
 				MagieBz.Tremblement(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
-			case "Eau":
-				MagieBz.Foudre(magie);
+				case "Bulles":
+					MagieBz.Bulles(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
-			case "Vent":
-				MagieBz.Foudre(magie);
+				case "Brise":
+					MagieBz.Brise(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
 			case "Morphée":
@@ -320,7 +369,7 @@ public class MobBz {
 			if (monstre.getATK() - joueur.getDEF() > 0) {
 				num = (monstre.getATK());
 				num = num - joueur.getDEF();
-				hit = Generator.GenNb(-10, 10);
+				hit = Generator.GenNb(0, 100);
 				hit = (double) num * (hit / (double) 100) + (double) num;
 				joueur.setHP((joueur.getHP() - (int) hit));
 				Message.Msg("Il effectue une attaque de " + (int) hit + " HP !");

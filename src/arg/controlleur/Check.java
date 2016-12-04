@@ -72,7 +72,8 @@ public class Check {
 			Pause.PauseAff(800);
 
 			int tamp = joueur.getHPmax();
-			int tamp2 = (joueur.getHPmax() + Generator.GenNb(joueur.getNiv(), joueur.getNiv() + 7)); // 30
+			int tamp2 = (joueur.getHPmax() + Generator.GenNb(joueur.getNiv() + 30, joueur.getNiv() + 50
+			)); // 30
 			joueur.setHPmax(tamp2); // 30
 			tamp = tamp2 - tamp; // 4
 			Message.Msg(" + " + tamp + " HP Max !");
@@ -80,7 +81,7 @@ public class Check {
 			Pause.PauseAff(200);
 
 			tamp = joueur.getMPmax();
-			tamp2 = (joueur.getMPmax() + Generator.GenNb(joueur.getNiv(), joueur.getNiv() + 6));
+			tamp2 = (joueur.getMPmax() + Generator.GenNb(joueur.getNiv() + 4, joueur.getNiv() + 6));
 			joueur.setMPmax(tamp2);
 			tamp = tamp2 - tamp;
 			Message.Msg(" + " + tamp + " MP Max !");
@@ -134,30 +135,34 @@ public class Check {
 
 	public static int CheckWeakResist(Player joueur, Mob monstre, int num, String nomMagie, String type)
 			throws IOException, InterruptedException {
-
-		if (type == "Magie") {
-			if (monstre.getWeak().equals(nomMagie) == true || monstre.getWeak().equals(type) == true) {
-				num = num * 2;
-				Message.Msg("C'est trés éfficace ! ");
-			}
-			if (monstre.getResist().equals(nomMagie) == true || monstre.getResist().equals(type) == true) {
-				double tamp;
-				tamp = ((double) num / ((double) 2));
-				num = ((int) tamp);
-				Message.Msg("C'est peu éfficace... ");
+		if (joueur.isYouTurn() == true) {
+			if (type == "Magie") {
+				if (monstre.getWeak().equals(nomMagie) == true || monstre.getWeak().equals(type) == true) {
+					num = num * 2;
+					Message.Msg("C'est trés éfficace ! ");
+				}
+				if (monstre.getResist().equals(nomMagie) == true || monstre.getResist().equals(type) == true) {
+					double tamp;
+					tamp = ((double) num / ((double) 2));
+					num = ((int) tamp);
+					Message.Msg("C'est peu éfficace... ");
+				}
 			}
 		}
 
-		if (type == "Attaque") {
-			if (monstre.getWeak().equals(type) == true) {
-				num = num * 2;
-				Message.Msg("C'est trés éfficace ! ");
-			}
-			if (monstre.getResist().equals(type) == true) {
-				double tamp;
-				tamp = ((double) num / ((double) 2));
-				num = ((int) tamp);
-				Message.Msg("C'est peu éfficace... ");
+
+		if (joueur.isYouTurn() == true) {
+			if (type == "Attaque") {
+				if (monstre.getWeak().equals(type) == true) {
+					num = num * 2;
+					Message.Msg("C'est trés éfficace ! ");
+				}
+				if (monstre.getResist().equals(type) == true) {
+					double tamp;
+					tamp = ((double) num / ((double) 2));
+					num = ((int) tamp);
+					Message.Msg("C'est peu éfficace... ");
+				}
 			}
 		}
 		return num;

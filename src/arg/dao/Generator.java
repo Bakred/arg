@@ -11,4 +11,10 @@ public class Generator {
 
 	}
 
+    public static double GenNbDouble(double rangeMin, double rangeMax) {
+        Random rn = new Random();
+        double num = rangeMin + (rangeMax - rangeMin) * rn.nextDouble();
+        return num;
+    }
+
 }
