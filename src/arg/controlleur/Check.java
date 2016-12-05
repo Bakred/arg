@@ -89,7 +89,7 @@ public class Check {
 			Pause.PauseAff(200);
 
 			tamp = joueur.getATK();
-			tamp2 = (joueur.getATK() + Generator.GenNb(joueur.getNiv() - 1, joueur.getNiv() + 1));
+			tamp2 = (joueur.getATK() + Generator.GenNb(joueur.getNiv() - 1, joueur.getNiv()));
 			joueur.setATK(tamp2);
 			tamp = tamp2 - tamp;
 			Message.Msg(" + " + tamp + " ATK !");

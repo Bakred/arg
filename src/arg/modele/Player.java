@@ -10,7 +10,7 @@ public class Player {
 	private int ATK;
 	private int DEF;
 	private int INT;
-	private int Niv = 19;
+	private int Niv = 1;
 	private boolean youTurn = true;
 
 	private boolean isPoison = false;

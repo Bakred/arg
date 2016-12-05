@@ -206,8 +206,8 @@ public class MobBz {
 			monstre.setNom(GenMob(monstre));
 
 			/* HP */
-			double tokenHPmin = -100 + joueur.getNiv();
-			double tokenHPmax = -70 + joueur.getNiv();
+			double tokenHPmin = -70 + joueur.getNiv();
+			double tokenHPmax = -50 + joueur.getNiv();
 			double tamp = Generator.GenNbDouble((double) (joueur.getHPmax() * (double) (tokenHPmin / 100) + (double) joueur.getHPmax()),
 					(double) (joueur.getHPmax() * (double) (tokenHPmax / 100) + (double) joueur.getHPmax()));
 			monstre.setHP((int) tamp);

@@ -37,7 +37,7 @@ public class PlayerBz {
 		joueur.setHPmax(joueur.getHP());
 		joueur.setMP(Generator.GenNb(20, 50));
 		joueur.setMPmax(joueur.getMP());
-		joueur.setATK(Generator.GenNb(15, 30));
+		joueur.setATK(Generator.GenNb(10, 20));
 		joueur.setDEF(Generator.GenNb(5, 10));
 		joueur.setINT(Generator.GenNb(5, 15));
 		Message.VoirPerso(joueur);
