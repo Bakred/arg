@@ -151,7 +151,7 @@ public class Check {
 		}
 
 
-		if (joueur.isYouTurn() == true) {
+		if (joueur.isYouTurn()) {
 			if (type == "Attaque") {
 				if (monstre.getWeak().equals(type) == true) {
 					num = num * 2;
@@ -170,7 +170,7 @@ public class Check {
 
 	public static void CheckBeforeAct(Player joueur, Mob monstre, String type) throws InterruptedException, IOException {
 		/* Sommeil */
-		if (joueur.isSleep() == true) {
+		if (joueur.isSleep()) {
 			
 			Sound.PlayMusic("./sounds/sleep.wav");
 			System.out.print("Vous êtes endormi... ");
@@ -196,7 +196,7 @@ public class Check {
 			}
 		}
 		/* Confusion */
-		if (joueur.isConfu() == true) {
+		if (joueur.isConfu()) {
 			
 			Sound.PlayMusic("./sounds/confu.wav");
 			Message.Msg2("Vous êtes confus ! ");

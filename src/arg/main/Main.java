@@ -9,6 +9,7 @@ public class Main {
 		System.setProperty("sun.java2d.opengl", "true");
 		//Fenetre fen = new Fenetre();
 		Music.ChoixMusic();
+		//Music.StopMusic();
 		// Music.PlayMusic("./music/distant_lullaby.ogg");
 		MenuPrincipal.Title();
 	}

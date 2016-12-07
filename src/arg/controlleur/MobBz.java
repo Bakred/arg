@@ -251,7 +251,6 @@ public class MobBz {
 
 		if (joueur.getNiv() == 20) {
 			Music.StopMusic();
-			Music.PlayMusic("./music/end.XM");
 			ASCIIBuilder.ASCIIBuild("; )");
 			Message.Msg2("Vous avez gagné la partie !");
 			Message.Confirm();

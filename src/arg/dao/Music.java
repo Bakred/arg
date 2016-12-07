@@ -11,11 +11,21 @@ import de.quippy.javamod.multimedia.mod.ModContainer;
 import de.quippy.javamod.system.Helpers;
 
 public class Music {
+	public static boolean isPlay() {
+		return play;
+	}
+
+	public static void setPlay(boolean play) {
+		Music.play = play;
+	}
+
 	protected static boolean play = true;
+
 
 	public static synchronized void PlayMusic(String musicfile) { // background
 		new Thread(new Runnable() { // background
 			public void run() { // background
+				Thread thisThread = Thread.currentThread();
 				boolean boucle = true;
 				while (play == true) {
 					do {
@@ -46,7 +56,7 @@ public class Music {
 				}
 			}
 
-		}).start(); // backgroung
+		}).start(); // background
 	}
 
 	public static void ChoixMusic() {
