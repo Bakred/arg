@@ -38,7 +38,7 @@ public class MobBz {
 			nom = "une Grand-mère péssimiste";
 			monstre.setWeak("Soin");
 			monstre.setResist("Aucune");
-			monstre.setCastMag("Aucune");
+			monstre.setCastMag("Morphée");
 			break;
 
 		case 4:
@@ -66,14 +66,14 @@ public class MobBz {
 			nom = "un Géant de feu";
 			monstre.setWeak("Glacier");
 			monstre.setResist("Brasier");
-			monstre.setCastMag("Aucune");
+			monstre.setCastMag("Brasier");
 			break;
 
 		case 8:
 			nom = "un Nain de jardin";
 			monstre.setWeak("Foudre");
 			monstre.setResist("Aucune");
-			monstre.setCastMag("Aucune");
+			monstre.setCastMag("Folie");
 			break;
 
 		case 9:
@@ -136,12 +136,12 @@ public class MobBz {
 			nom = "un Nuage d'acide";
 			monstre.setWeak("Brise");
 			monstre.setResist("Attaque");
-			monstre.setCastMag("Folie");
+			monstre.setCastMag("Morphée");
 			break;
 
 		case 18:
 			nom = "une Fée déchue";
-			monstre.setWeak("Soin");
+			monstre.setWeak("Brise");
 			monstre.setResist("Glacier");
 			monstre.setCastMag("Folie");
 			break;
@@ -156,7 +156,7 @@ public class MobBz {
 		case 20:
 			nom = "une Plante carnivore";
 			monstre.setWeak("Brasier");
-			monstre.setResist("Aucune");
+			monstre.setResist("Bulles");
 			monstre.setCastMag("Aucune");
 			break;
 
@@ -171,7 +171,7 @@ public class MobBz {
 			nom = "un Oiseau de fer";
 			monstre.setWeak("Brise");
 			monstre.setResist("Attaque");
-			monstre.setCastMag("Aucune");
+			monstre.setCastMag("Brise");
 			break;
 
 		case 23:
@@ -220,7 +220,7 @@ public class MobBz {
 			monstre.setMP((int) tamp);
 
 			/* ATK */
-			double tokenATKmin = -10 + joueur.getNiv();
+			double tokenATKmin = 0 + joueur.getNiv();
 			double tokenATKmax = 10 + joueur.getNiv();
 			tamp = Generator.GenNbDouble((double) (joueur.getATK() * (double) (tokenATKmin / 100) + (double) joueur.getATK()),
 					(double) (joueur.getATK() * (double) (tokenATKmax / 100) + (double) joueur.getATK()));
@@ -328,15 +328,15 @@ public class MobBz {
 				MagieBz.Glacier(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
-			case "Foudre":
+				case "Foudre":
 				MagieBz.Foudre(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
-			case "Soin":
+				case "Soin":
 				MagieBz.Soin(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
-			case "Bouclier":
+				case "Bouclier":
 				MagieBz.Bouclier(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
@@ -352,10 +352,10 @@ public class MobBz {
 					MagieBz.Brise(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				break;
-			case "Morphée":
+				case "Morphée":
 				MagieBz.Morphée(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
-			case "Folie":
+				case "Folie":
 				MagieBz.Folie(magie);
 				MagieBz.MobMag(joueur, monstre, magie);
 				
