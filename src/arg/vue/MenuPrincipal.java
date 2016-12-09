@@ -4,13 +4,13 @@ import arg.dao.ASCIIBuilder;
 
 public class MenuPrincipal {
 
-	public static void Title() throws java.lang.Exception {
+    public static void Title() throws java.lang.Exception {
 
-		ASCIIBuilder.ASCIIBuild(" A R G");
-		Message.Msg("                   Another Rogue Game         ");
-		Message.Msg("                    Version 0.6 BETA ");
-		Message.Msg("         ---Appuyez sur Entrer pour commençer--- ");
-		MenuWorld.CarteDuMonde();
-	}
+        ASCIIBuilder.ASCIIBuild(" A R G");
+        Message.Msg("                   Another Rogue Game         ");
+        Message.Msg("                    Version 0.6 BETA ");
+        Message.Msg("         ---Appuyez sur Entrer pour commençer--- ");
+        MenuWorld.CarteDuMonde();
+    }
 
 }
