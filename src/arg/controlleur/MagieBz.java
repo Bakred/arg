@@ -76,8 +76,8 @@ public class MagieBz {
         magie.setMPneed(10);
         magie.setMinRange(26);
         magie.setMaxRange(36);
-        magie.setMessage("une rafale");
-        magie.setResult("Cette rafale");
+        magie.setMessage("une brise");
+        magie.setResult("Cette brise");
         magie.setSndEffect("wind.wav");
     }
 
@@ -159,163 +159,188 @@ public class MagieBz {
     }
 
 
-    public static void PersoMag(Player joueur, Mob monstre, Magie magie) throws IOException, InterruptedException {
-        System.out.print("\033[H\033[2J");
-        ASCIIBuilder.ASCIIBuild("(◣_◢)");
-        Check.CheckMP(joueur, monstre, magie);
-        Message.Msg2("Vous lancez " + magie.getMessage() + " !");
-        Pause.PauseAff(1000);
-        Sound.PlayMusic("./sounds/" + magie.getSndEffect());
-        int num = 0;
-        num = Generator.GenNb(joueur.getINT() + magie.getMinRange(), joueur.getINT() + magie.getMaxRange());
-        num = Check.CheckWeakResist(joueur, monstre, num, magie.getNomMagie(), magie.getType());
+    public static void LaunchMag(Player joueur, Mob monstre, Magie magie) throws IOException, InterruptedException {
+        // Tour du joueur
+        if (joueur.isYouTurn()) {
+            System.out.print("\033[H\033[2J");
+            ASCIIBuilder.ASCIIBuild("(◣_◢)");
+            Check.CheckMP(joueur, monstre, magie);
+            Message.Msg2("Vous lancez " + magie.getMessage() + " !");
+            Pause.PauseAff(1000);
+            Sound.PlayMusic("./sounds/" + magie.getSndEffect());
+            int num;
+            num = Generator.GenNb(joueur.getINT() + magie.getMinRange(), joueur.getINT() + magie.getMaxRange());
+            num = Check.CheckWeakResist(joueur, monstre, num, magie.getNomMagie(), magie.getType());
 
 		/* Soin */
 
-        if (magie.getType() == "MagSoin") {
-            if ((joueur.getHP() + num) >= joueur.getHPmax()) {
-                Message.Msg("Vous regagnez vos HP maximum ! (" + joueur.getHPmax() + ")");
-                joueur.setMP(joueur.getMP() - magie.getMPneed());
-                joueur.setHP(joueur.getHPmax());
+            if (magie.getType().equals("MagSoin")) {
+                if ((joueur.getHP() + num) >= joueur.getHPmax()) {
+                    Message.Msg("Vous regagnez vos HP maximum ! (" + joueur.getHPmax() + ")");
+                    joueur.setMP(joueur.getMP() - magie.getMPneed());
+                    joueur.setHP(joueur.getHPmax());
 
+                }
+                if ((joueur.getHP() + num) < joueur.getHPmax()) {
+                    Message.Msg("Vous regagnez " + num + " HP !");
+                    joueur.setMP(joueur.getMP() - magie.getMPneed());
+                    joueur.setHP(joueur.getHP() + num);
+                }
+                Pause.PauseAff(800);
+                Message.Confirm();
+                MobBz.MobAtk(joueur, monstre);
             }
-            if ((joueur.getHP() + num) < joueur.getHPmax()) {
-                Message.Msg("Vous regagnez " + num + " HP !");
-                joueur.setMP(joueur.getMP() - magie.getMPneed());
-                joueur.setHP(joueur.getHP() + num);
-            }
-            Pause.PauseAff(800);
-            Message.Confirm();
-            MobBz.MobAtk(joueur, monstre);
-        }
 
 		/* Bouclier */
 
-        if (magie.getType() == "MagBuff") {
-            double tamp;
-            tamp = (double) joueur.getDEF() * ((double) 25 / (double) 100) + (double) joueur.getDEF();
-            joueur.setDEF((int) tamp);
-            joueur.setMP(joueur.getMP() - (magie.getMPneed() - joueur.getNiv()));
-            Message.Msg("Votre défense augmente de 25% ! (" + joueur.getDEF() + ")");
-            Pause.PauseAff(800);
-            Message.Confirm();
-            MobBz.MobAtk(joueur, monstre);
-        }
+            if (magie.getType().equals("MagBuff")) {
+                double tamp;
+                tamp = (double) joueur.getDEF() * ((double) 25 / (double) 100) + (double) joueur.getDEF();
+                joueur.setDEF((int) tamp);
+                joueur.setMP(joueur.getMP() - (magie.getMPneed() - joueur.getNiv()));
+                Message.Msg("Votre défense augmente de 25% ! (" + joueur.getDEF() + ")");
+                Pause.PauseAff(800);
+                Message.Confirm();
+                MobBz.MobAtk(joueur, monstre);
+            }
 
 		/* Le reste */
 
-        if (magie.getType() == "Magie") {
-            Message.Msg(magie.getResult() + " fait " + num + " HP de dommages !");
-            joueur.setMP(joueur.getMP() - (magie.getMPneed()));
-            if (joueur.getMP() <= 0)
-                joueur.setMP(0);
-            monstre.setHP(monstre.getHP() - num);
-            if (monstre.getHP() <= 0)
-                monstre.setHP(0);
+            if (magie.getType().equals("Magie")) {
+                Message.Msg(magie.getResult() + " fait " + num + " HP de dommages !");
+                joueur.setMP(joueur.getMP() - (magie.getMPneed()));
+                if (joueur.getMP() <= 0)
+                    joueur.setMP(0);
+                monstre.setHP(monstre.getHP() - num);
+                if (monstre.getHP() <= 0)
+                    monstre.setHP(0);
 
-            Pause.PauseAff(1000);
-            Check.CheckHP(joueur, monstre);
-            Message.Confirm();
-            MobBz.MobAtk(joueur, monstre);
+                Pause.PauseAff(1000);
+                Check.CheckHP(joueur, monstre);
+                Message.Confirm();
+                MobBz.MobAtk(joueur, monstre);
+            }
         }
-    }
 
-    public static void MobMag(Player joueur, Mob monstre, Magie magie) throws IOException, InterruptedException {
-        Message.Msg("L'ennemi lance " + magie.getMessage() + " !");
-        Pause.PauseAff(800);
-        Sound.PlayMusic("./sounds/" + magie.getSndEffect());
-        int num = 0;
-        num = Generator.GenNb(monstre.getINT() + magie.getMinRange(), monstre.getINT() + magie.getMaxRange());
-        num = Check.CheckWeakResist(joueur, monstre, num, magie.getNomMagie(), magie.getType());
+        // Tour du monstre
+        if (joueur.isYouTurn() == false) {
+            Message.Msg("L'ennemi lance " + magie.getMessage() + " !");
+            Pause.PauseAff(800);
+            Sound.PlayMusic("./sounds/" + magie.getSndEffect());
+            int num;
+            num = Generator.GenNb(monstre.getINT() + magie.getMinRange(), monstre.getINT() + magie.getMaxRange());
+            num = Check.CheckWeakResist(joueur, monstre, num, magie.getNomMagie(), magie.getType());
 
 		/* Soin */
 
-        if (magie.getType() == "MagSoin") {
-            if ((monstre.getHP() + num) >= monstre.getHPmax()) {
-                Message.Msg("L'ennemi regagne ses HP maximum ! (" + monstre.getHPmax() + ")");
-                monstre.setMP(monstre.getMP() - magie.getMPneed());
-                monstre.setHP(monstre.getHPmax());
+            if (magie.getType().equals("MagSoin")) {
+                if ((monstre.getHP() + num) >= monstre.getHPmax()) {
+                    Message.Msg("L'ennemi regagne ses HP maximum ! (" + monstre.getHPmax() + ")");
+                    monstre.setMP(monstre.getMP() - magie.getMPneed());
+                    monstre.setHP(monstre.getHPmax());
 
+                }
+                if ((monstre.getHP() + num) < monstre.getHPmax()) {
+                    Message.Msg("L'ennemi regagne " + num + " HP !");
+                    monstre.setMP(monstre.getMP() - magie.getMPneed());
+                    monstre.setHP(monstre.getHP() + num);
+                }
+                Pause.PauseAff(800);
+                Message.Confirm();
+                Combat.Arene(joueur, monstre);
             }
-            if ((monstre.getHP() + num) < monstre.getHPmax()) {
-                Message.Msg("L'ennemi regagne " + num + " HP !");
-                monstre.setMP(monstre.getMP() - magie.getMPneed());
-                monstre.setHP(monstre.getHP() + num);
-            }
-            Pause.PauseAff(800);
-            Message.Confirm();
-            Combat.Arene(joueur, monstre);
-        }
 
 		/* Bouclier */
 
-        if (magie.getType() == "MagBuff") {
-            double tamp;
-            tamp = (double) monstre.getDEF() * ((double) 25 / (double) 100) + (double) monstre.getDEF();
-            monstre.setDEF((int) tamp);
-            monstre.setMP(joueur.getMP() - (magie.getMPneed() - monstre.getINT()));
-            Message.Msg("La défense de l'ennemi augmente de 25% ! ");
-            Pause.PauseAff(800);
-            Message.Confirm();
-            Combat.Arene(joueur, monstre);
-        }
+            if (magie.getType().equals("MagBuff")) {
+                double tamp;
+                tamp = (double) monstre.getDEF() * ((double) 25 / (double) 100) + (double) monstre.getDEF();
+                monstre.setDEF((int) tamp);
+                monstre.setMP(joueur.getMP() - (magie.getMPneed() - monstre.getINT()));
+                Message.Msg("La défense de l'ennemi augmente de 25% ! ");
+                Pause.PauseAff(800);
+                Message.Confirm();
+                Combat.Arene(joueur, monstre);
+            }
 
 		/* Morphée */
 
-        if (magie.getType() == "Sleep") {
-            int choix = 0;
-            choix = Generator.GenNb(1, 2);
-            switch (choix) {
-                case 1:
-                    Message.Msg(magie.getResult() + " vous fait dormir en plein combat !");
-                    joueur.setSleep(true);
-                    break;
+            if (magie.getType().equals("Sleep")) {
+                int choix;
+                choix = Generator.GenNb(1, 2);
+                switch (choix) {
+                    case 1:
+                        Message.Msg(magie.getResult() + " vous fait dormir en plein combat !");
+                        joueur.setSleep(true);
+                        break;
 
-                case 2:
-                    Message.Msg(magie.getResult() + " ne vous à pas atteint !");
-                    break;
+                    case 2:
+                        Message.Msg(magie.getResult() + " ne vous à pas atteint !");
+                        break;
+                }
+
+                Pause.PauseAff(800);
+                Message.Confirm();
+                Combat.Arene(joueur, monstre);
             }
 
-            Pause.PauseAff(800);
-            Message.Confirm();
-            Combat.Arene(joueur, monstre);
-        }
-		
 		/* Folie */
 
-        if (magie.getType() == "Confu") {
-            int choix = 0;
-            choix = Generator.GenNb(1, 2);
-            switch (choix) {
-                case 1:
-                    Message.Msg(magie.getResult() + " vous rend confus !");
-                    joueur.setConfu(true);
-                    break;
+            if (magie.getType().equals("Confu")) {
+                int choix;
+                choix = Generator.GenNb(1, 2);
+                switch (choix) {
+                    case 1:
+                        Message.Msg(magie.getResult() + " vous rend confus !");
+                        joueur.setConfu(true);
+                        break;
 
-                case 2:
-                    Message.Msg(magie.getResult() + " ne vous à pas atteint !");
-                    break;
+                    case 2:
+                        Message.Msg(magie.getResult() + " ne vous à pas atteint !");
+                        break;
+                }
+
+                Pause.PauseAff(800);
+                Message.Confirm();
+                Combat.Arene(joueur, monstre);
             }
 
-            Pause.PauseAff(800);
-            Message.Confirm();
-            Combat.Arene(joueur, monstre);
-        }
+        /* Poison */
+
+            if (magie.getType().equals("Poison")) {
+                int choix;
+                choix = Generator.GenNb(1, 2);
+                switch (choix) {
+                    case 1:
+                        Message.Msg(magie.getResult() + " vous empoisonne !");
+                        joueur.setConfu(true);
+                        break;
+
+                    case 2:
+                        Message.Msg(magie.getResult() + " ne vous à pas atteint !");
+                        break;
+                }
+
+                Pause.PauseAff(800);
+                Message.Confirm();
+                Combat.Arene(joueur, monstre);
+            }
 
 		/* Le reste */
 
-        if (magie.getType() == "Magie") {
-            Message.Msg(magie.getResult() + " vous fait " + num + " HP de dommages !");
-            monstre.setMP(monstre.getMP() - (magie.getMPneed()));
-            if (monstre.getMP() <= 0)
-                monstre.setMP(0);
-            joueur.setHP(joueur.getHP() - num);
-            if (joueur.getHP() <= 0)
-                joueur.setHP(0);
+            if (magie.getType().equals("Magie")) {
+                Message.Msg(magie.getResult() + " vous fait " + num + " HP de dommages !");
+                monstre.setMP(monstre.getMP() - (magie.getMPneed()));
+                if (monstre.getMP() <= 0)
+                    monstre.setMP(0);
+                joueur.setHP(joueur.getHP() - num);
+                if (joueur.getHP() <= 0)
+                    joueur.setHP(0);
 
-            Check.CheckHP(joueur, monstre);
-            Message.Confirm();
-            Combat.Arene(joueur, monstre);
+                Check.CheckHP(joueur, monstre);
+                Message.Confirm();
+                Combat.Arene(joueur, monstre);
+            }
         }
     }
-}
+    }

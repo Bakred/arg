@@ -67,7 +67,7 @@ public class Combat {
                     Message.Confirm();
                     Combat.Arene(joueur, monstre);
             }
-        } while (boucle == true);
+        } while (boucle);
     }
 
     public static void MenuMagie(Player joueur, Mob monstre) throws IOException, InterruptedException {
@@ -80,21 +80,21 @@ public class Combat {
             Message.Msg2("Liste de vos magies");
             Message.Msg("----------------------------");
             MagieBz.Brasier(magie);
-            Message.Msg("     F - Feu ( " + magie.getMPneed() + " MP)               ");
+            Message.Msg("     B - Brasier ( " + magie.getMPneed() + " MP)               ");
             MagieBz.Glacier(magie);
-            Message.Msg("     G - Glace ( " + magie.getMPneed() + " MP)              ");
+            Message.Msg("     G - Glacier ( " + magie.getMPneed() + " MP)              ");
             MagieBz.Foudre(magie);
-            Message.Msg("     E - Foudre ( " + magie.getMPneed() + " MP)              ");
+            Message.Msg("     F - Foudre ( " + magie.getMPneed() + " MP)              ");
             MagieBz.Soin(magie);
             Message.Msg("     S - Soin ( " + magie.getMPneed() + " MP)              ");
             MagieBz.Bouclier(magie);
-            Message.Msg("     B - Bouclier ( " + magie.getMPneed() + " MP)              ");
+            Message.Msg("     O - Bouclier ( " + magie.getMPneed() + " MP)              ");
             MagieBz.Tremblement(magie);
-            Message.Msg("     T - Terre ( " + magie.getMPneed() + " MP)              ");
+            Message.Msg("     T - Tremblement ( " + magie.getMPneed() + " MP)              ");
             MagieBz.Bulles(magie);
-            Message.Msg("     W - Eau ( " + magie.getMPneed() + " MP)              ");
+            Message.Msg("     E - Bulles ( " + magie.getMPneed() + " MP)              ");
             MagieBz.Brise(magie);
-            Message.Msg("     V - Vent ( " + magie.getMPneed() + " MP)              ");
+            Message.Msg("     V - Brise ( " + magie.getMPneed() + " MP)              ");
             Message.Msg("     A - Annuler                   						   ");
             Message.Msg("----------------------------");
             Scanner sc3;
@@ -103,52 +103,52 @@ public class Combat {
             choix2 = (scanner3.toUpperCase());
 
             switch (choix2) {
-                case "F":
+                case "B":
                     MagieBz.Brasier(magie);
                     Check.CheckBeforeAct(joueur, monstre, null);
-                    MagieBz.PersoMag(joueur, monstre, magie);
+                    MagieBz.LaunchMag(joueur, monstre, magie);
                     break;
 
                 case "G":
                     MagieBz.Glacier(magie);
                     Check.CheckBeforeAct(joueur, monstre, null);
-                    MagieBz.PersoMag(joueur, monstre, magie);
+                    MagieBz.LaunchMag(joueur, monstre, magie);
                     break;
 
-                case "E":
+                case "F":
                     MagieBz.Foudre(magie);
                     Check.CheckBeforeAct(joueur, monstre, null);
-                    MagieBz.PersoMag(joueur, monstre, magie);
+                    MagieBz.LaunchMag(joueur, monstre, magie);
                     break;
 
-                case "B":
+                case "O":
                     MagieBz.Bouclier(magie);
                     Check.CheckBeforeAct(joueur, monstre, null);
-                    MagieBz.PersoMag(joueur, monstre, magie);
+                    MagieBz.LaunchMag(joueur, monstre, magie);
                     break;
 
                 case "S":
                     MagieBz.Soin(magie);
                     Check.CheckBeforeAct(joueur, monstre, null);
-                    MagieBz.PersoMag(joueur, monstre, magie);
+                    MagieBz.LaunchMag(joueur, monstre, magie);
                     break;
 
                 case "T":
                     MagieBz.Tremblement(magie);
                     Check.CheckBeforeAct(joueur, monstre, null);
-                    MagieBz.PersoMag(joueur, monstre, magie);
+                    MagieBz.LaunchMag(joueur, monstre, magie);
                     break;
 
-                case "W":
+                case "E":
                     MagieBz.Bulles(magie);
                     Check.CheckBeforeAct(joueur, monstre, null);
-                    MagieBz.PersoMag(joueur, monstre, magie);
+                    MagieBz.LaunchMag(joueur, monstre, magie);
                     break;
 
                 case "V":
                     MagieBz.Brise(magie);
                     Check.CheckBeforeAct(joueur, monstre, null);
-                    MagieBz.PersoMag(joueur, monstre, magie);
+                    MagieBz.LaunchMag(joueur, monstre, magie);
                     break;
 
                 case "A":
@@ -160,13 +160,13 @@ public class Combat {
                     Message.Confirm();
                     Combat.Arene(joueur, monstre);
             }
-        } while (boucle == true);
+        } while (boucle);
     }
 
     public static void PersoFuite(Player joueur, Mob monstre) throws IOException, InterruptedException {
         Message.Msg2("Tentative de fuite !");
         Pause.PauseAff(800);
-        int num = 0;
+        int num;
         num = Generator.GenNb(1, 5);
         switch (num) {
             case 1:

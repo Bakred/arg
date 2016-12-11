@@ -8,7 +8,7 @@ public class MenuPrincipal {
 
         ASCIIBuilder.ASCIIBuild(" A R G");
         Message.Msg("                   Another Rogue Game         ");
-        Message.Msg("                    Version 0.6 BETA ");
+        Message.Msg("                Version 0.6 BEFORE REBOOT ");
         Message.Msg("         ---Appuyez sur Entrer pour commençer--- ");
         MenuWorld.CarteDuMonde();
     }

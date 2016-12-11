@@ -13,11 +13,13 @@ import java.util.Properties;
 public class Music {
     protected static boolean play = true;
 
+    public boolean stop = false;
+
     public static synchronized void PlayMusic(String musicfile) { // background
         new Thread(new Runnable() { // background
             public void run() { // background
                 boolean boucle = true;
-                while (play == true) {
+                while (play) {
                     do {
                         try {
                             Helpers.registerAllClasses();
@@ -35,25 +37,33 @@ public class Music {
                             MultimediaContainer multimediaContainer = MultimediaContainerManager
                                     .getMultimediaContainer(modUrl);
                             Mixer mixer = multimediaContainer.createNewMixer();
-                            mixer.startPlayback();
+                            StartMixer(mixer);
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
                             System.exit(3);
                         } catch (Exception e) {
                             e.printStackTrace();
+                            System.exit(3);
                         }
-                    } while (boucle == true);
+                    } while (boucle);
                 }
             }
 
-        }).start(); // backgroung
+        }).start(); // background
     }
 
+
+    public static void StartMixer(Mixer mixer) {
+        mixer.startPlayback();
+    }
+
+
+
     public static void ChoixMusic() {
-        int num = 0;
+        int num;
         final String PATH = "./music/";
         String name;
-        num = Generator.GenNb(3, 3);
+        num = Generator.GenNb(6, 6);
         switch (num) {
             case 1:
                 name = "sun.xm";

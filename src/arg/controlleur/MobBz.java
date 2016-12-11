@@ -13,7 +13,7 @@ public class MobBz {
 
     public static String GenMob(Mob monstre) {
         String nom = "";
-        int num = 0;
+        int num;
         num = Generator.GenNb(1, 25);
         switch (num) {
             case 1:
@@ -116,9 +116,9 @@ public class MobBz {
 
             case 15:
                 nom = "une Masse gélantneuse";
-                monstre.setWeak("Aucune");
+                monstre.setWeak("Attaque");
                 monstre.setResist("Glacier");
-                monstre.setCastMag("Aucune");
+                monstre.setCastMag("Soin");
                 break;
 
             case 16:
@@ -196,30 +196,28 @@ public class MobBz {
 
     public static void GenerationMob(Player joueur, Mob monstre) throws IOException {
         if (joueur.getNiv() < 20) {
-            /*double tokenmin = -20;
-			double tokenmax = 20; */
 
             monstre.setNom(GenMob(monstre));
 
 			/* HP */
             double tokenHPmin = -70 + joueur.getNiv();
             double tokenHPmax = -50 + joueur.getNiv();
-            double tamp = Generator.GenNbDouble((double) (joueur.getHPmax() * (double) (tokenHPmin / 100) + (double) joueur.getHPmax()),
-                    (double) (joueur.getHPmax() * (double) (tokenHPmax / 100) + (double) joueur.getHPmax()));
+            double tamp = Generator.GenNbDouble((joueur.getHPmax() * (tokenHPmin / 100) + (double) joueur.getHPmax()),
+                    (joueur.getHPmax() * (tokenHPmax / 100) + (double) joueur.getHPmax()));
             monstre.setHP((int) tamp);
 
 			/* MP */
             double tokenMPmin = -20 + joueur.getNiv();
             double tokenMPmax = 20 + joueur.getNiv();
-            tamp = Generator.GenNbDouble((double) (joueur.getMPmax() * (double) (tokenMPmin / 100) + (double) joueur.getMPmax()),
-                    (double) (joueur.getMPmax() * (double) (tokenMPmax / 100) + (double) joueur.getMPmax()));
+            tamp = Generator.GenNbDouble((joueur.getMPmax() * (tokenMPmin / 100) + (double) joueur.getMPmax()),
+                    (joueur.getMPmax() * (tokenMPmax / 100) + (double) joueur.getMPmax()));
             monstre.setMP((int) tamp);
 
 			/* ATK */
             double tokenATKmin = 0 + joueur.getNiv();
             double tokenATKmax = 10 + joueur.getNiv();
-            tamp = Generator.GenNbDouble((double) (joueur.getATK() * (double) (tokenATKmin / 100) + (double) joueur.getATK()),
-                    (double) (joueur.getATK() * (double) (tokenATKmax / 100) + (double) joueur.getATK()));
+            tamp = Generator.GenNbDouble((joueur.getATK() * (tokenATKmin / 100) + (double) joueur.getATK()),
+                    (joueur.getATK() * (tokenATKmax / 100) + (double) joueur.getATK()));
             monstre.setATK((int) tamp);
 
 			/* DEF */
@@ -232,15 +230,15 @@ public class MobBz {
             if (tokenDEFmin >= 0) {
                 tokenDEFmin = 0;
             }
-            tamp = Generator.GenNbDouble((double) (joueur.getDEF() * (double) (tokenDEFmin / 100) + (double) joueur.getDEF()),
-                    (double) (joueur.getDEF() * (double) (tokenDEFmax / 100) + (double) joueur.getDEF()));
+            tamp = Generator.GenNbDouble((joueur.getDEF() * (tokenDEFmin / 100) + (double) joueur.getDEF()),
+                    (joueur.getDEF() * (tokenDEFmax / 100) + (double) joueur.getDEF()));
             monstre.setDEF((int) tamp);
 
 			/* INT */
             double tokenINTmin = -20 + joueur.getNiv();
             double tokenINTmax = 20 + joueur.getNiv();
-            tamp = Generator.GenNbDouble((double) (joueur.getINT() * (double) (tokenINTmin / 100) + (double) joueur.getINT()),
-                    (double) (joueur.getINT() * (double) (tokenINTmax / 100) + (double) joueur.getINT()));
+            tamp = Generator.GenNbDouble((joueur.getINT() * (tokenINTmin / 100) + (double) joueur.getINT()),
+                    (joueur.getINT() * (tokenINTmax / 100) + (double) joueur.getINT()));
             monstre.setINT((int) tamp);
             // prixTTC = prixHT * ( 23 / 100 ) + prixHT;
         }
@@ -260,20 +258,19 @@ public class MobBz {
         Message.Msg2("L'ennemi attaque ! ");
         joueur.setYouTurn(false);
         Pause.PauseAff(800);
-		/* Coup critique */
-        int choix = 0;
-        int num = 0;
-        double hit = 0;
-		
-		/* Check si le monstre à une magie */
-        if (monstre.getCastMag() == "Aucune") {
+        int choix;
+        int num;
+        double hit;
+
+        // Check si le monstre à une magie
+        if (monstre.getCastMag().equals("Aucune")) {
             choix = Generator.GenNb(1, 19);
         } else {
             choix = Generator.GenNb(1, 20);
         }
 
         switch (choix) {
-
+            // Critique
             case 1:
                 Sound.PlayMusic("./sounds/sickle.wav");
                 Message.Msg("Coup critique !");
@@ -284,77 +281,70 @@ public class MobBz {
                 hit = (double) num * (hit / (double) 100) + (double) num;
                 joueur.setHP((joueur.getHP() - (int) hit));
                 Message.Msg("Il effectue une attaque de " + (int) hit + " HP !");
+                Pause.PauseAff(800);
 
                 if (joueur.getHP() <= 0) {
                     Message.Msg("Par votre courage, vous disposez d'un répit !");
                     joueur.setHP(1);
                 }
                 break;
-
+            // Raté
             case 2:
                 Sound.PlayMusic("./sounds/hit2.wav");
                 Message.Msg("Attaque raté !");
                 Pause.PauseAff(800);
                 break;
-			
-			/* Magie */
+
+            // Magie
             case 20:
                 String nomMagie = monstre.getCastMag();
                 Magie magie = new Magie();
-                if (monstre.getMP() >= (magie.getMPneed())) {
-                    Sound.PlayMusic("./sounds/limit.wav");
-                }
-
-                if (monstre.getMP() < (magie.getMPneed())) {
-                    Message.Msg2("L'ennemi n'a plus assez d'MP !");
-                    Message.Confirm();
-                    MobBz.MobAtk(joueur, monstre);
-                }
+                Check.CheckMP(joueur, monstre, magie);
 
                 switch (nomMagie) {
                     case "Brasier":
                         MagieBz.Brasier(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
                         break;
                     case "Glacier":
                         MagieBz.Glacier(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
                         break;
                     case "Foudre":
                         MagieBz.Foudre(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
                         break;
                     case "Soin":
                         MagieBz.Soin(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
                         break;
                     case "Bouclier":
                         MagieBz.Bouclier(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
                         break;
                     case "Tremblement":
                         MagieBz.Tremblement(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
                         break;
                     case "Bulles":
                         MagieBz.Bulles(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
                         break;
                     case "Brise":
                         MagieBz.Brise(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
                         break;
                     case "Morphée":
                         MagieBz.Morphée(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
                     case "Folie":
                         MagieBz.Folie(magie);
-                        MagieBz.MobMag(joueur, monstre, magie);
+                        MagieBz.LaunchMag(joueur, monstre, magie);
 
                         break;
                 }
                 break;
-
+            // Attaque normale
             default:
                 Sound.PlayMusic("./sounds/hit.wav");
 
